@@ -1,0 +1,107 @@
+﻿ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - InYourInterest</title>
+    <meta name="keywords" content="" />
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" asp-append-version="true" />
+    <script src="_framework/blazor.server.js"></script>
+    <environment names="Development">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="bg-eventures" style="background-color: #AFEEEE">
+            <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold"> 
+                <a class="py-2" href="/Home/Index" aria-label="Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24">
+                        <title>Home</title>
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path>
+                    </svg>
+                </a>
+                <partial name="_SearchPartial" />
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav"> 
+                        @if (this.User.Identity.IsAuthenticated)
+                        {//i tuka je imame dropdown menu
+                            <li class="nav-item active">
+                                <div class="dropdown show">
+                                    <a class="nav-link active" href="Event/All"
+                                       role="button"
+                                       id="dropdownMenuLink"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Events
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" asp-controller="Event" asp-action="All"><span>All Events</span></a>
+                                        <a class="dropdown-item" asp-controller="Event" asp-action="Create"><span>Create Event</span></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item active">
+                                <div class="dropdown show">
+                                    <a class="nav-link active" href="Group/All"
+                                       role="button"
+                                       id="dropdownMenuLink"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Groups
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" asp-controller="Group" asp-action="Index"><span>All Groups</span></a>
+                                        <a class="dropdown-item" asp-controller="Group" asp-action="Create"><span>Create Group</span></a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main class="mt-4 pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        <footer class="w-75 mt-3 mx-auto bg-eventures rounded">
+            <div class="container-fluid bg-eventures">
+                <div class="text-dark p-1 text-center">
+                    <h5 class="font-weight-normal mt-2">&copy; CopyRight InYourInterest Inc. 2021-2021. All rights reserved.</h5>
+                </div>
+            </div>
+        </footer>
+        <environment names="Development">
+            <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+            <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+  
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+            <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+        @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model InYourInterest.ViewModels.Events.EventsAllViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+@if (User.IsInRole("Admin"))
+{
+    <div class="adminstyle jumbotron jumbotron-fluid" style="background-color: #AFEEEE">
+        <div class="container">
+            <h1 class="display-4">Hello from Admin area!</h1>
+            <p class="lead">Enjoy on your work!</p>
+            <li><a asp-area="Administration" asp-controller="Categories" asp-action="All"><span>Categories</span></a></li>
+        </div>
+    </div>
+}
+else
+{
+    <div class="jumbotron text-center bgimg" style="margin-bottom: 0;color: #8A3450;text-align: left" ;background-color:#F7D3BF>
+        <p class="lead"><i>This site is made for you! To enjoy of your hobbies, interests!</i></p>
+        <h5>It's all for you and your preference. Have fun!</h5>
+    </div>
+    <br />
+    <br />
+
+    <div class="container">
+        <div class="card-deck">
+            <div class="row ">
+                @*@foreach (var item in Model.Events.Take(8))
+                {
+                    <div class="col-sm-3">
+                        <a href="/Event/Details/@item.Id"
+                           class="card" style="width: 15rem; display: inline-block">
+                            <img src="@item.Image" class="card-img-top" />
+                            <div class="card-header">
+                                <h5 class="card-title">@item.Name</h5>
+                            </div>
+                            <div class="card-body">
+                                @if (@item.SanitizedContent.Length >= 30)
+                                {
+                                    <p class="card-text">@item.SanitizedContent.Substring(0, Math.Min(150, item.SanitizedContent.Length))...</p>
+                                }
+                                else
+                                {
+
+                                    <p class="card-text">@item.SanitizedContent</p>
+                                }
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted" style="font-style:italic">Location: @item.Location.Substring(0, Math.Min(30, item.Location.Length))...</small>
+                            </div>
+                        </a>
+                    </div>
+                }*@
+            </div>
+        </div>
+    </div>
+}
+
+<section class="css-sqc4k1">
+    <h2 class="text--sectionTitle css-uewl2b">Browse events by category</h2>
+
+    @*@{
+        var getlist = ViewBag.Category as IEnumerable<InYourInterest.Data.Models.Category>;
+        <div class="categoryGridList css-1q80wuk">  
+            @foreach (var item in getlist)
+            { 
+                <div class="css-13zb9hu">
+                    <div class="css-46hqvx">
+                        <div class="css-qpi38e">
+                            <a class="css-1i2on81" href="/Event/All/@item.Id" method="get">
+                                @item.Name
+                            </a>
+                        </div>
+                    </div>
+                </div> 
+            } 
+        </div>
+    }*@
+</section>

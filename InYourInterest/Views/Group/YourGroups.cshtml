@@ -1,0 +1,43 @@
+﻿@*@model List<InYourInterest.ViewModels.Groups.GroupMembersViewModel>*@
+@model List<InYourInterest.Data.Models.GroupMembers>
+@{
+    ViewData["Title"] = "Your groups";
+    Layout = "~/Views/Shared/_GroupLayout.cshtml";
+}
+<style>
+    body {
+        background: #EDEDED;
+    }
+</style>
+<h1 class="text-center"
+    style=" color: #7D49A6;
+        margin: 40px 0 60px 0;
+        font-weight: 300;
+    ">
+    You are in @Model.Count groups member
+</h1>
+
+<div class="container"> 
+    <div class="row">
+        @foreach (var item in Model)
+        {  
+                <a class="card-group col-md-3 d-flex align-items-stretch" href="MyGroup/@item.GroupId">
+                    <div class="our-team-main">
+                        <div class="team-front">
+                            <img src="@item.Group.SmallImage" class="img-fluid" />
+                            <h3>@item.GroupName</h3>
+                            <p>Host: @item.UserName</p>
+                        </div>
+                        <div class="team-back">
+                            <span> <i>Joined to: </i> @item.DateJoined</span>
+                            <div>
+                                <hr class="hr-2" />
+                                <p>@item.Group.Description.Substring(0, Math.Min(250, @item.Group.Description.Length))...</p>
+                            </div>
+
+                        </div> 
+                    </div>
+                </a>  
+            }
+        </div>
+    </div> 

@@ -1,0 +1,78 @@
+﻿@model InYourInterest.InputModels.Events.EventsCreateInputModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<hr />
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded" style="color:#69D2E7;">Update Event</h1>
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+<form method="post" class="form border-primary-4 rounded p-3 w-60  row g-3" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group col-12">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Name" class="text-primary h5">Name</label>
+        </div>
+        <input type="text"
+               class="form-control text-primary text-center"
+               id="name"
+               placeholder="Enter Name..."
+               asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Description" class="text-primary h5">Description</label>
+        </div>
+        <textarea type="text"
+                  class="form-control text-primary text-center"
+                  id="manufacturedOn"
+                  placeholder="Enter Description..."
+                  asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    @if (Model.IsItOnline==false)
+    { 
+        <div class="col-12">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Location" class="text-primary h5">Location</label>
+            </div>
+            <input asp-for="Location" class="form-control text-primary text-center" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div> 
+    }
+    <div class="col-md-6">
+        <div class="d-flex justify-content-center">
+            <label asp-for="CategoriesId" class="text-primary h5">Category</label>
+        </div>
+        @*@Html.DropDownListFor(model => model.CategoriesId, ViewBag.Category as SelectList, "--Select Type--", new { @class = "form-control" })*@
+        <select asp-for="CategoriesId" class="form-control" asp-items="ViewBag.Category"></select>
+        <span asp-validation-for="CategoriesId" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Image" class="text-primary h5">Picture</label>
+        </div>
+        <input type="file"
+               class="form-control text-primary text-center"
+               id="picture"
+               placeholder="Select Image"
+               asp-for="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+        <br />
+    </div>
+    <div class="d-flex justify-content-center col-12">
+        <button class="btn btn-primary font-weight-bold">Update Event</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

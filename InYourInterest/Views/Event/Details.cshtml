@@ -1,0 +1,83 @@
+﻿@model InYourInterest.ViewModels.Events.EventsDetailsViewModel
+@using Microsoft.AspNetCore.Identity
+@using InYourInterest.Data.Models
+@using Ganss.XSS
+
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+        var uId = Model.Event.UserId;
+    
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Event.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Event.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                string SanitizedContent = new HtmlSanitizer().Sanitize(Model.Event.Description);
+            }
+
+            @Html.Raw(SanitizedContent)
+        </dd>
+        @if (Model.Event.IsItOnline == false)
+        {
+            <dt class="col-sm-2">
+
+                @Html.DisplayNameFor(model => model.Event.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Event.Location == null)
+                { 
+                    <h6>
+                        <i>
+                            The @UserManager.Users.FirstOrDefault(x => x.Id == uId).UserName didn't
+                            specify an address!
+                        </i>
+                    </h6>
+                 }
+                @Html.DisplayFor(model => model.Event.Location)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">Only:</dt>
+            <dd class="col-sm-10"><b>Online</b></dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Event.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Event.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
+            <h6><b>Created by:</b></h6>
+        </dt>
+        <dd class="col-sm-10">
+
+            <h6>@UserManager.Users.FirstOrDefault(x => x.Id == uId).UserName</h6>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Event.Image)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Event.Image" alt="" class="img" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Attend" asp-route-id="@Model.Event.Id">Attend</a>
+    <a asp-action="all">back to list</a>
+</div>

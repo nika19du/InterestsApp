@@ -1,0 +1,113 @@
+﻿@model InYourInterest.InputModels.Events.EventsCreateInputModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    var er = TempData["Error"].ToString();
+
+}
+@if (er != null) {
+<p class="text-danger">@er</p>
+    }
+<h2 class="text-primary d-flex justify-content-center">Create Event</h2>
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+<hr />
+<form asp-action="Create" method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Name" class="text-primary h5">Name</label>
+        </div>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="d-flex justify-content-center">
+        <label asp-for="Description" class="text-primary h5">Description</label>
+    </div>
+    <textarea type="text"
+              class="form-control text-primary" 
+              placeholder="Enter Description..." runat="server"asp-for="Description"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Location" class="text-primary h5">Location</label>
+        </div>
+        <input asp-for="Location" class="form-control locate" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group row justify-content-center">
+        <div class="d-flex">
+            <label asp-for="Started" typeof="date" class="text-primary h5 col">Start:</label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" type="datetime-local" asp-for="Started">
+        </div>
+
+        <div class="d-flex">
+            <label asp-for="Ended" typeof="date" class="text-primary h5">End:</label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" type="datetime-local" asp-for="Ended">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <label asp-for="CategoriesId" class="text-primary h5">Category</label>
+        @*@Html.DropDownListFor(model => model.CategoriesId, ViewBag.Category as SelectList, "--Select Type--", new { @class = "form-control" })*@
+    <select asp-for="CategoriesId" class="form-control" asp-items="ViewBag.Category"></select>
+        <span asp-validation-for="CategoriesId" class="text-danger"></span>
+
+    </div>
+    @**@
+    <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Image" class="text-primary h5">Picture</label>
+        </div>
+        <input type="file"
+               class="form-control text-primary text-center"
+               id="picture"
+               placeholder="Select Image"
+               asp-for="Image" required>
+        <span asp-validation-for="Image" class="text-danger"></span>
+        <br />
+    </div>
+    <div class="form-group row-2">
+        <div class="checkbox">
+            <label asp-for="IsItOnline">
+                @*onClick="ckChange(this)"onclick="ckChange"*@
+                <input asp-for="IsItOnline" class="cl" onclick="ckChange();" />
+                Is the event online?
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-center col-12">
+        <input type="submit" value="Create" class="btn btn-primary form-control center" />
+    </div>
+</form>
+<div>
+    <a asp-action="All">Back to List</a>
+</div>
+<script>
+    function ckChange() {
+        if (!$('.cl').data('clicked')) {
+            $('.locate').prop('disabled', true);
+        }
+        else {
+            $(".locate").removeAttr('disabled')
+        }
+        $('.cl').data('clicked', true);
+    };
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

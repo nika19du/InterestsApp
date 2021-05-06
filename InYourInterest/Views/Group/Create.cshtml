@@ -1,0 +1,60 @@
+﻿@model InYourInterest.InputModels.Groups.GroupsCreateInputModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="create-community">
+    <div class="create-community-content">
+        <h2>Now let's create your community</h2>
+        <p>You can always update this information later.</p>
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="create-community-single ">
+                <div class="column-50-custom">
+                    <span>Community name: *</span>
+                    <span>Choose a name for your community</span>
+                </div>
+                <div class="column-50-custom">
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="create-community-single ">
+                <div class="column-50-custom">
+                    <span> Community description: *</span>
+                    <span>Write a brief description for your community</span>
+                </div>
+                <div class="column-50-custom">
+                    <textarea asp-for="Description" class="form-control-range"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="create-community-single create-community-single-extension ">
+                <div class="column-50-custom">
+                    <label asp-for="Image">Community Picture: *</label>
+                    <span>Set a photo for your community</span>
+                </div>
+                <div class="column-50-custom">
+                    <input type="file"
+                           class="form-control text-primary text-center"
+                           id="picture"
+                           placeholder="Select Photo"
+                           asp-for="Image" required>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="create-community-single ">
+                <div class="column-50-custom">
+                    <span> Community category: *</span>
+                    <span>Select category</span>
+                </div>
+                <div class="column-50-custom">
+                    <select asp-for="CategoriesId" class="form-control" asp-items="ViewBag.Category"></select>
+                    <span asp-validation-for="CategoriesId" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" value="Create" class="btn btn-new-signup disabled">Continue</button>
+        </form>
+    </div>
+</div>

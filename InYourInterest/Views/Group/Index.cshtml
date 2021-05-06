@@ -1,0 +1,66 @@
+﻿@model InYourInterest.ViewModels.Groups.GroupAllViewModel
+
+@{
+    ViewData["Title"] = "All Groups";
+    Layout = "~/Views/Shared/_GroupLayout.cshtml";
+}
+
+@using X.PagedList.Mvc.Core.Common;
+<div class="container tt-search">
+    @using (Html.BeginForm("Index", "Group", FormMethod.Get))
+    {
+        <input type="text" name="search" asp-for="Search"
+         class="tt-search__input" placeholder="Enter Group Name ..." />
+        <input type="submit" name="submit" asp-for="Search" value="Search" />
+    }
+</div>
+<br />
+<h2 class="d-flex justify-content-center" style="color:#9E5F8C;">Find Groups.<small>It's always easy</small></h2>
+ 
+<div class="css-110lygn">
+    <div class="css-j7qwjs">
+        @foreach (var item in Model.Groups)@*.First()*@
+        {
+            <div data-recommendationid="08299a08-654f-41e0-9dc2-a17d9095d373" data-recommendationsource="ml-popular-events-nearby" data-eventref="276628482!chp" data-element-name="categoryResults-eventCard" data-testid="categoryResults-eventCard" class="css-1gl3lql">
+                <div class="css-11tad7j">
+                    <a href="Group/MyGroup/@item.Id" class="css-2ne5m0">
+                        <div class="css-ial3k8">
+                            <div class="css-hgy8p5">
+                                <div class="css-1ysz7ol">
+                                    <div class=" gatsby-image-wrapper" style="position: relative; overflow: hidden; height: inherit; width: 100%; object-fit: cover; background-color: rgb(230, 230, 230); border-radius: 8px;">
+                                        <div aria-hidden="true" style="width: 100%; padding-bottom: 56.25%;">
+                                        </div>
+                                        <picture>
+                                            <img src="@item.SmallImage" sizes="(max-width: 600px) 100vw, 600px" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity 200ms ease 0s;" />
+                                        </picture>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="css-ctwwr3">
+                                <div class="css-yhfwdr">
+                                    <p class="css-1jy1jkx">@item.Name</p>
+                                    <p css-ycqk9>
+                                        <span>@item.Location | @item.CategoryName |</span>
+                                        Host: @item.HostUserName
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container">
+    @Html.PagedListPager((IPagedList)Model.Groups, i => Url.Action("Index", new { i }),
+        new PagedListRenderOptions
+        {
+            DisplayLinkToIndividualPages = true,
+            DisplayPageCountAndCurrentLocation = false,
+            MaximumPageNumbersToDisplay = 10,
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" },
+        })
+</div>

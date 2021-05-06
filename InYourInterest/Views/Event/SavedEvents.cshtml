@@ -1,0 +1,42 @@
+﻿@model List<EventsSavedViewModel>
+@using InYourInterest.ViewModels.Events
+
+@{
+    ViewData["Title"] = "SavedEvents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-primary d-flex justify-content-center">Your event bookings</h2>
+<div class="d-flex justify-content-center">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            <div class="col-12 mt-3">
+                <a href="/Event/Details/@item.Id"> 
+                    <div class="card savedEv">
+                        <div class="card-horizontal">
+                            <div class="img-square-wrapper">
+                                <img class="img" src="@item.Image">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">@item.Name</h4>
+                                @if (item.Description.Length >= 150)
+                                {
+                                    <p class="card-text">@item.Content.Substring(0, Math.Min(150, item.Description.Length))...</p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">@item.Content</p> 
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">@item.Location   |   @item.CategoriesId</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            }
+        </div>
+    </div>
+</div>

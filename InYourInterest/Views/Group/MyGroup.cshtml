@@ -1,0 +1,97 @@
+﻿@model InYourInterest.ViewModels.Groups.GroupInfoViewModel
+@using System.Security.Claims;
+@{
+    ViewData["Title"] = @Model.Name;
+    Layout = "~/Views/Shared/_GroupLayout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center">
+            <img src="@Model.HostProfilePicture" onerror="this.src=''"
+                 class="author-pic img-fluid rounded-circle mx-auto" />
+        </div>
+        <span class="d-block text-center">Organized by: @Model.HostUserName</span>
+        <span class="date d-block text-center small text-uppercase text-black-50 mb-5">
+            <svg preserveAspectRatio="xMinYMin meet" width="20" height="20" viewBox="0 0
+                 20 20" class="svg svg--profiles svg-icon valign--middle" role="img"
+                 style="fill: rgb(53, 62, 72);">
+                <use xlink:href="#icon-profiles--small"></use>
+            </svg>
+            @Html.ViewData["Count"] members
+        </span>
+        <h2 class="heading text-center">@Model.Name</h2>
+        <p class="lead mb-4 text-center">@Model.Location | @Model.CategoryName</p>
+        @if (Model.LargeImage != null)
+        {
+            <img src="@Model.LargeImage " alt="Image" class="img-fluid rounded mb-4">
+        }
+        else
+        {
+            <img src="@Model.SmallImage " alt="Logo" class="img-fluid rounded mb-4">
+        }
+        <blockquote>
+            <p> <i>Group info: </i>@Model.Description</p>
+            @if (@Model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            {
+                <a class="btn btn-block btn-pink text-white py-3 px-4" href="/Group/Update/@Model.Id">Update group</a>
+            }
+        </blockquote>
+        @if (ViewBag.AlreadyMember || @Model.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+        {
+            <div class="ibox-content m-b-sm border-bottom">
+                <div class="p-xs">
+                    <div class="pull-left m-r-md">
+                        <i class="fa fa-globe text-navy mid-icon"></i>
+                    </div>
+                    <h2>Welcome to our forum</h2>
+                    <a class="btn btn-info" asp-controller="Posts" asp-action="Create">
+                        <i class="fas fa-plus-circle"></i>
+                    </a><span class="col">Feel free to choose topic you're interested in.</span>
+                </div>
+            </div>
+            @if (Model.Posts.Count >= 1)
+            {
+                <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                    <div class="card mb-2">
+                        <div class="card-body p-2 p-sm-3">
+                            <div class="media forum-item">
+                                @foreach (var post in Model.Posts)
+                                {
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-circle" width="50" alt="User" />
+                                    <div class="media-body">
+                                        <h6><a href="Posts/Details/@post.Id" data-toggle="collapse" data-target=".forum-content" class="text-body">@post.Title</a></h6>
+                                        <p class="text-secondary">
+                                            @post.Description
+                                        </p>
+                                        <p class="text-muted"><a href="javascript:void(0)">TODO:</a> replied <span class="text-secondary font-weight-bold">13 minutes ago</span></p>
+                                    </div>
+                                    <div class="text-muted small text-center align-self-center">
+                                        <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> @post.Views</span>
+                                        <span><i class="far fa-comment ml-2"></i> @post.Replies.Count</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="appeal">
+                    <div class="wrapper">
+                        <h3>No Posts Yet :/ be the First >> <a asp-controller="Posts" asp-action="Create" style="color:#0D2334;">New Discussion</a></h3>
+                    </div>
+                </div>
+            }
+        }
+        else if (ViewBag.AlreadyMember == false)
+        {
+            <div class="row mt-5 pt-4 border-top">
+                <div class="onboarding-button">
+                    <a class="btn btn-pink text-white py-3 px-4" href="/Group/Attend/@Model.Id">Attend</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

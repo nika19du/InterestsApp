@@ -1,0 +1,123 @@
+﻿@model InYourInterest.ViewModels.Events.EventsAllViewModel
+@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "All";
+}
+@using X.PagedList.Mvc.Core.Common; 
+<br />
+<div class="tt-custom-mobile-indent container">
+    <div class="tt-categories-title">
+        <div class="tt-title">@ViewData["Title"]</div>
+        <a asp-controller="Event"
+           asp-action="Create"
+           class="btn btn-primary ml-auto">
+            <i class="fas fa-plus"></i>
+        </a>
+        &nbsp;
+        <div class="tt-search">
+            <form class="search-wrapper"
+                  asp-controller="Event"
+                  asp-action="All"
+                  method="get">
+                <div class="search-form">
+                    <input type="text" name="id"
+                           asp-for="Search"
+                           class="tt-search__input"
+                           placeholder="Search Categories" />
+                    <button runat="server" asp-for="Search" id="btnSubmit" class="btn btn-mini">
+                        <i class="fa fa-forward" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <br />
+            </form>
+        </div>
+    </div>
+    <div class="tt-categories-list">
+        <div class="row">
+            @foreach (var e in Model.Events)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="tt-item">
+                        <div class="tt-item-header">
+                            <img src="@e.Image" alt="..." class="img" />
+                            <ul class="tt-list-badge">
+                                <li>
+                                    <a asp-controller="Event"
+                                       asp-action="Details"
+                                       asp-route-id="@e.Id">
+                                        <span class="tt-color01 tt-badge">@e.Name</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tt-item-layout">
+                            <div class="innerwrapper">
+                                Lets discuss about @e.Name.
+                            </div>
+                            <hr />
+                            @if (e.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                            {
+                                <hr />
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a asp-controller="Event"
+                                           asp-action="Edit"
+                                           asp-route-id="@e.Id"
+                                           class="btn btn-info">
+                                            Edit
+                                        </a>
+                                        <form class="btn" asp-controller="Event" asp-action="Delete" asp-route-id="@e.Id"
+                                              method="post">
+                                            <button class="btn btn-danger btn-block" onclick="return confirm('Are you sure you want to cancel the event?')"
+                                                    value="Cancel"
+                                                    data-url="@Url.Action($"Delete/{e.Id}")">
+                                                <i class="fas fa-trash-alt">
+                                                </i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <form asp-controller="Event"
+                                      asp-action="Details"
+                                      asp-route-id="@e.Id"
+                                      method="post"
+                                      class="btn">
+                                    <button type="submit" class="btn btn-secondary btn-group active">
+                                        <i>Details</i>
+                                    </button>
+                                </form>
+                                <form asp-controller="Event"
+                                      asp-action="Attend"
+                                      asp-route-id="@e.Id"
+                                      method="post"
+                                      class="btn">
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="btn btn-group">Attend</i>
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<br />
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+<div class="justify-content-center container-fluid align-items-center h-100 d-flex">
+    @Html.PagedListPager((IPagedList)Model.Events, i => Url.Action("All", new {i}),
+        new PagedListRenderOptions
+        {  
+            DisplayLinkToIndividualPages = true,
+            DisplayPageCountAndCurrentLocation = false,
+            MaximumPageNumbersToDisplay = 10,
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+        })
+</div>
