@@ -2,6 +2,7 @@
 using InYourInterest.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace InYourInterest.ViewModels.Posts
@@ -21,6 +22,7 @@ namespace InYourInterest.ViewModels.Posts
 
         public bool IsPinned { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}")]
         public string CreatedOn { get; set; }
 
         public string Description { get; set; }
