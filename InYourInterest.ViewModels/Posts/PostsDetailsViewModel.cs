@@ -22,8 +22,7 @@ namespace InYourInterest.ViewModels.Posts
 
         public bool IsPinned { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyy}")]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string Description { get; set; }
 
