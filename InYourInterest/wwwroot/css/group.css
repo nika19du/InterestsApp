@@ -523,7 +523,7 @@
         }
 }
 .pt-editor {
-    padding-top: 36px;
+    padding-top: 5px;
 }
 
     .pt-editor .pt-title {
@@ -623,7 +623,9 @@
         .pt-editor .pt-edit-btn .btn-icon:hover {
             fill: #2172cd;
         }
-
+hr.hr-2 {
+    height: 2px;
+}
     .pt-editor .pt-edit-btn hr {
         display: none;
     }
@@ -866,7 +868,46 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     margin-bottom: 15px;
 }
+@media (min-width: 1025px) .tt-single-topic {
+    padding: 30px 30px 40px 125px;
+}
 
+.tt-single-topic {
+    position: relative;
+}
+    .tt-single-topic .tt-item-description {
+        padding-top: 21px;
+        letter-spacing: .01em;
+    }
+    .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-info-time {
+        white-space: nowrap;
+        font-size: 14px;
+        color: #666f74;
+        padding: 0 0 0 0;
+    }
+@media (min-width: 576px) .tt-single-topic .tt-item-info.info-bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.tt-single-topic .tt-item-info.info-bottom {
+    margin-top: 34px;
+}
 .our-values .card-body {
     z-index: 10;
     background: rgba(255, 255, 255, 0.9);
@@ -1418,3 +1459,217 @@ svg[Attributes Style] {
     width: 20;
     height: 20;
 }
+
+.tt-single-topic-list > .tt-item:not(:first-child) {
+    margin-top: 30px;
+}
+
+.tt-single-topic-list > .tt-item:not([class^="tt-wrapper-success"]) {
+    background-color: #ffffff;
+}
+
+.tt-single-topic-list > .tt-item.tt-wrapper-success {
+    border: 1px solid #68c193;
+    background-color: #e6fbf0;
+}
+
+.tt-single-topic-list > .tt-item.tt-wrapper-danger {
+    border: 1px dashed #f56e6f;
+    background-color: #fff2f2;
+}
+
+.tt-single-topic {
+    position: relative;
+}
+.post-comments {
+    padding-bottom: 9px;
+    margin: 5px 0 5px;
+}
+
+.comments-nav {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+} 
+.post-comments .comment-meta {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+} 
+.post-comments .media {
+    border-left: 1px dotted #000;
+    border-bottom: 1px dotted #000;
+    margin-bottom: 5px;
+    padding-left: 10px;
+} 
+.post-comments .media-heading {
+    font-size: 12px;
+    color: grey;
+} 
+.post-comments .comment-meta a {
+    font-size: 12px;
+    color: grey;
+    font-weight: bolder;
+    margin-right: 5px;
+}
+    .tt-single-topic .tt-item-header .tt-item-info.info-top {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -ms-flex-line-pack: center;
+        align-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 6px;
+        padding-bottom: 8px;
+    }
+
+        .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-avatar-icon .tt-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-avatar-title {
+            color: #666f74;
+            font-size: 14px;
+            line-height: 26px;
+            letter-spacing: 0.01em;
+            padding-right: 15px;
+        }
+
+            .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-avatar-title a {
+                color: #666f74;
+                display: inline-block;
+                margin-right: 11px;
+            }
+
+                .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-avatar-title a:hover {
+                    color: #2172cd;
+                }
+
+        .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-info-time {
+            white-space: nowrap;
+            font-size: 14px;
+            color: #666f74;
+            padding: 0 0px 0 0;
+        }
+
+            .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-info-time .tt-icon {
+                margin-right: 16px;
+            }
+
+                .tt-single-topic .tt-item-header .tt-item-info.info-top .tt-info-time .tt-icon svg {
+                    width: 16px;
+                    height: 16px;
+                }
+
+    .tt-single-topic .tt-item-header .tt-item-title {
+        font-size: 18px;
+        line-height: 30px;
+        font-weight: 500;
+        margin: 3px 0 0 0;
+        letter-spacing: 0.01em;
+    }
+
+        .tt-single-topic .tt-item-header .tt-item-title a {
+            display: inline-block;
+            color: #303344;
+            -webkit-transition: color 0.2s linear;
+            transition: color 0.2s linear;
+        }
+
+            .tt-single-topic .tt-item-header .tt-item-title a:hover {
+                color: #2172cd;
+            }
+
+    .tt-single-topic .tt-item-header .tt-item-tag {
+        margin-top: 12px;
+    }
+
+    .tt-single-topic .tt-item-header:not(.pt-noborder) {
+        border-bottom: 1px solid #e2e7ea;
+        padding: 0 0 5px 0;
+    }
+
+    .tt-single-topic .tt-item-header.pt-noborder + .tt-item-description {
+        padding-top: 5px;
+    }
+
+    .tt-single-topic .tt-item-description {
+        padding-top: 1px;
+        letter-spacing: 0.01em;
+    }
+
+        .tt-single-topic .tt-item-description .tt-title {
+            font-size: 16px;
+            line-height: 26px;
+            font-weight: 600;
+            color: #182730;
+            padding: 0;
+            margin: 0;
+        }
+
+            .tt-single-topic .tt-item-description .tt-title a {
+                color: #182730;
+            }
+
+                .tt-single-topic .tt-item-description .tt-title a:hover {
+                    color: #2172cd;
+                }
+
+        .tt-single-topic .tt-item-description img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .tt-single-topic .tt-item-description .video-container {
+            max-width: 713px;
+        }
+
+        .tt-single-topic .tt-item-description .topic-inner-list {
+            margin-top: 37px;
+            padding-bottom: 8px;
+        }
+
+            .tt-single-topic .tt-item-description .topic-inner-list .topic-inner:not(:first-child) {
+                margin-top: 30px;
+            }
+
+        .tt-single-topic .tt-item-description .topic-inner {
+            background-color: #f7f8fa;
+            border-left: 2px solid #2172cd;
+            padding: 30px 43px 22px 28px;
+        }
+
+            .tt-single-topic .tt-item-description .topic-inner .topic-inner-title {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                flex-direction: row;
+                -ms-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+                -webkit-box-pack: start;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+                -ms-flex-line-pack: stretch;
+                align-content: stretch;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+            }
+
+                .tt-single-topic .tt-item-description .topic-inner .topic-inner-title .topic-inner-avatar svg {
+                    width: 40px;
+                    height: 40px;
+                }

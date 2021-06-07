@@ -36,20 +36,22 @@ namespace InYourInterest.Controllers
             this.tagsService = tagsService;
             this.repliesService = repliesService;
         }
-
-        public async Task<IActionResult> Create(string id)
+        [HttpGet]
+        public async Task<IActionResult> Create(string Id)
         {
             var viewModel = new PostsCreateInputModel
             {
                 Tags = await this.tagsService.GetAllAsync<PostsTagsDetailsViewModel>(),
                 Categories = await this.categoriesService.GetAllAsync<PostsCategoryDetailsViewModel>(),
+                GroupId=Id
             };
-            viewModel.GroupId = id;
+            //  viewModel.GroupId = Id;
+            //  return View("~/Views/Posts/Create.cshtml",id,viewModel); 
             return View("~/Views/Posts/Create.cshtml",viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string id,PostsCreateInputModel input)
+        public async Task<IActionResult> Create(string Id,PostsCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -58,8 +60,7 @@ namespace InYourInterest.Controllers
 
                 return this.View(input);
             }
-            var user = await userManager.GetUserAsync(User);
-
+            var user = await userManager.GetUserAsync(User); 
             var postId = await this.postsService.CreateAsync(
                 input.Title,
                 input.PostType,
@@ -67,7 +68,7 @@ namespace InYourInterest.Controllers
                 user.Id,
                 input.CategoryId,
                 input.TagIds,
-                id);
+                Id);
 
             return this.RedirectToAction(nameof(Details), new { id = postId });
         }

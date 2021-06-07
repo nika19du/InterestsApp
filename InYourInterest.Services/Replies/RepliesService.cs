@@ -15,24 +15,26 @@ namespace InYourInterest.Services.Replies
     public class RepliesService : IRepliesService
     {
         private readonly Context context;
-        private readonly IMapper mapper;
-        //private readonly IUsersService usersService;
+        private readonly IMapper mapper; 
         public RepliesService(Context context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
         }
         public async Task CreateAsync(string description, string parentId, string postId, string authorId)
-        {
+        { 
             Reply reply = new Reply
             {
                 Id = Guid.NewGuid().ToString(),
                 Description = description,
                 CreatedOn = DateTime.UtcNow,
-                ParentId = parentId,
                 PostId = postId,
                 AuthorId = authorId
             };
+            if (parentId!="0")
+            {
+                reply.ParentId = parentId;
+            }
             this.context.Replies.Add(reply);
             await this.context.SaveChangesAsync();
         }

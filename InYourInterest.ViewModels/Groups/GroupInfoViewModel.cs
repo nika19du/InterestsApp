@@ -25,7 +25,7 @@ namespace InYourInterest.ViewModels.Groups
         public string HostCreatedOn { get; set; }
         public ICollection<Post> Posts { get; set; }
 
-        //public List<string> SanitizedContent=> new HtmlSanitizer().Sanitize(this.Posts.Where(x=>x.Description));
+        //public List<string> SanitizedContent=> new HtmlSanitizer().Sanitize(this.Posts.Where(x=>x.Description)); 
            
     }
 }

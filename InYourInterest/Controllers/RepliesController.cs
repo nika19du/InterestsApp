@@ -20,22 +20,18 @@ namespace InYourInterest.Controllers
             this.repliesService = repliesService;
             this.userManager = userManager;
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(RepliesCreateInputModel input)
-        {
-             
+         
+        public async Task<IActionResult> Create(string par,string content,string parentId,string postId)
+        { 
             var userId = userManager.GetUserId(this.User);
-
+            if (par != null && parentId == null)
+                parentId = par;
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
-            }
-
-            await this.repliesService.CreateAsync(input.Description, input.ParentId, input.PostId, userId);
-
-            return this.RedirectToAction("Details", "Posts", new { id = input.PostId });
-
+                return this.RedirectToAction("Details", "Posts", new { id =postId});
+            } 
+            await this.repliesService.CreateAsync(content, parentId, postId, userId);
+            return this.RedirectToAction("Details", "Posts", new { id =postId }); 
         }
     }
 }

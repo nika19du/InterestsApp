@@ -10,7 +10,7 @@ namespace InYourInterest.InputModels.Posts
     public class PostsCreateInputModel
     {
         [Required]
-        [StringLength(12, ErrorMessage = "Can't be more than 12 symbols", MinimumLength = 3)]
+        [StringLength(20, ErrorMessage = "Can't be more than 20 symbols", MinimumLength = 3)]
         public string Title { get; set; }
 
         [Required]
