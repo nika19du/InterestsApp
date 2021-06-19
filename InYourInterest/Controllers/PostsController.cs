@@ -4,6 +4,7 @@ using InYourInterest.Data.Models;
 using InYourInterest.InputModels.Posts;
 using InYourInterest.Services.Categories;
 using InYourInterest.Services.Posts;
+using InYourInterest.Services.Reactions;
 using InYourInterest.Services.Replies;
 using InYourInterest.Services.Tags;
 using InYourInterest.ViewModels.Posts;
@@ -25,8 +26,9 @@ namespace InYourInterest.Controllers
         private ICategoriesService categoriesService;
         private ITagsService tagsService;
         private IRepliesService repliesService;
+        private IReplyReactionsService replyReactionsService;
 
-        public PostsController(IPostsService postsService, Context context, UserManager<User> userManager,IMapper mapper, ICategoriesService categoriesService, ITagsService tagsService, IRepliesService repliesService)
+        public PostsController(IPostsService postsService, Context context, UserManager<User> userManager,IMapper mapper, ICategoriesService categoriesService, ITagsService tagsService, IRepliesService repliesService, IReplyReactionsService replyReactionsService)
         {
             this.postsService = postsService;
             this.context = context;
@@ -35,6 +37,7 @@ namespace InYourInterest.Controllers
             this.categoriesService = categoriesService;
             this.tagsService = tagsService;
             this.repliesService = repliesService;
+            this.replyReactionsService = replyReactionsService;
         }
         [HttpGet]
         public async Task<IActionResult> Create(string Id)
@@ -86,6 +89,15 @@ namespace InYourInterest.Controllers
             post.Tags = await this.tagsService.GetAllByPostIdAsync<PostsTagsDetailsViewModel>(id);
             post.Replies = await this.repliesService.GetAllByPostIdAsync<PostsRepliesDetailsViewModel>(id, sort);
 
+            foreach (var r in post.Replies)
+            {
+               var json= await replyReactionsService.GetCountByReplyIdAsync(r.Id);
+                r.Likes = json.Likes;
+                r.Loves = json.Loves;
+                r.WowCount = json.WowCount;
+                r.AngryCount = json.AngryCount;
+                r.HahaCount = json.HahaCount;
+            }
             return this.View(post);
         }
     }

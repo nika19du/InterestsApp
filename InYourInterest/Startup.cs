@@ -1,6 +1,7 @@
 using CloudinaryDotNet;
 using InYourInterest.Data;
 using InYourInterest.Data.Models;
+using InYourInterest.Infrastructure.Extensions;
 using InYourInterest.Models;
 using InYourInterest.Services.Categories;
 using InYourInterest.Services.Cloudinaries;
@@ -9,6 +10,7 @@ using InYourInterest.Services.Groups;
 using InYourInterest.Services.Mapping;
 using InYourInterest.Services.Posts;
 using InYourInterest.Services.Providers;
+using InYourInterest.Services.Reactions;
 using InYourInterest.Services.Replies;
 using InYourInterest.Services.Tags;
 using InYourInterest.Services.Users;
@@ -72,7 +74,7 @@ namespace InYourInterest
             services.AddTransient<IGroupsService, GroupsService>();
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<ITagsService, TagsService>();
-            services.AddTransient<IRepliesService, RepliesService>();
+            services.AddTransient<IRepliesService, RepliesService>(); services.AddTransient<IReplyReactionsService,ReplyReactionsService>(); services.AddTransient<IPostReactionsService, PostReactionsService>();
             //var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY"); 
             //services.AddTransient<Services.Providers.IEmailSender>(serviceProvider =>
             //     new SendGridEmailSender(apiKey));
@@ -98,6 +100,7 @@ namespace InYourInterest
 
             services.AddSingleton(cloudinaryUtility);
             services.AddAuthentication();
+
             services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddServerSideBlazor();

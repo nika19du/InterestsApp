@@ -10,7 +10,7 @@ namespace InYourInterest.Services.Reactions
     public interface IReplyReactionsService
     {
         Task<ReactionsCountServiceModel> ReactAsync(ReactionType reactionType, string replyId,string authorId);
-
+        Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(string replyId);
         Task<int> GetTotalCountAsync();
     }
 }

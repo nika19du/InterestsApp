@@ -31,6 +31,7 @@ namespace InYourInterest.Services.Reactions
             {
                 replyReaction = new Data.Models.ReplyReaction
                 {
+                    Id=Guid.NewGuid().ToString(),
                     ReactionType=reactionType,
                     ReplyId = replyId,
                     AuthorId=authorId,
@@ -47,16 +48,16 @@ namespace InYourInterest.Services.Reactions
             return await this.GetCountByReplyIdAsync(replyId);
         }
 
-        private async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(string replyId)
+        public async Task<ReactionsCountServiceModel> GetCountByReplyIdAsync(string replyId)
         {
             return new ReactionsCountServiceModel
             {
                 Likes = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
-                Loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
-                HahaCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
-                WowCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
-                SadCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId),
-                AngryCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Like, replyId)
+                Loves = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Love, replyId),
+                HahaCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Haha, replyId),
+                WowCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Wow, replyId),
+                SadCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Sad, replyId),
+                AngryCount = await this.GetCountByTypeAndReplyIdAsync(ReactionType.Angry, replyId)
             };
         }
 
