@@ -27,6 +27,7 @@ namespace InYourInterest.Services.Reactions
             {
                 postReaction = new Data.Models.PostReaction
                 {
+                    Id = Guid.NewGuid().ToString(), 
                     ReactionType = reactionType,
                     PostId = postId,
                     AuthorId = authorId,
@@ -50,10 +51,10 @@ namespace InYourInterest.Services.Reactions
             {
                 Likes = await this.GetCountByTypeAndPostIdAsync(ReactionType.Like, postId),
                 Loves=await this.GetCountByTypeAndPostIdAsync(ReactionType.Love,postId),
-                HahaCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId),
-                WowCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId),
-                SadCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId),
-                AngryCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Love, postId)
+                HahaCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Haha, postId),
+                WowCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Wow, postId),
+                SadCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Sad, postId),
+                AngryCount = await this.GetCountByTypeAndPostIdAsync(ReactionType.Angry, postId)
             };
         }
 

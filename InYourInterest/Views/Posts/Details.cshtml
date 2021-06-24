@@ -134,6 +134,7 @@
                     <p>@Html.Raw(Model.SanitizedDescription)</p>
                 </div>
                 <div class="tt-item-info info-bottom">
+                    @Html.AntiForgeryToken()
                     <partial name="_DetailsReactionsPartial" model="Model" />
 
                     <div class="col-separator"></div>
@@ -322,168 +323,138 @@
             $([document.documentElement, document.body]).animate({
                 scrollTop: $('#AddCommentForm').offset().top
             }, 1000);
-        }
-
-
-        function likeReaction(id, controller, type) {
-
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/ReplyReactions/Like/' + id,
-            //    contentType: 'application/json; charset=utf-8',
-            //    dataType: 'json',
-            //    success: function (json) {
-            //        if (type === 'post') {
-            //            $("#post-likes").html(json.likes);
-            //            $("#post-loves").html(json.loves);
-            //            $("#post-haha").html(json.hahaCount);
-            //            $("#post-wow").html(json.wowCount);
-            //            $("#post-sad").html(json.sadCount);
-            //            $("#post-angry").html(json.angryCount);
-            //        } else {
-            //            $("#reply-likes-" + id).html(json.likes);
-            //            $("#reply-loves-" + id).html(json.loves);
-            //            $("#reply-haha-" + id).html(json.hahaCount);
-            //            $("#reply-wow-" + id).html(json.wowCount);
-            //            $("#reply-sad-" + id).html(json.sadCount);
-            //            $("#reply-angry-" + id).html(json.angryCount);
-            //        }
-            //    }
-            //});
-
-            // window.location.href = '/ReplyReactions/Like/' + id;
-
-            $.ajax({
-                url: '/ReplyReactions/Like/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+        } 
+            function likeReaction(id, controller, type) {
+                $.ajax({
+                    url:'/' + controller+'/Like/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-"+id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
-
-        function loveReaction(id, controller, type) {
-            $.ajax({
-                url: '/ReplyReactions/Love/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+                });
+            }
+            function loveReaction(id, controller, type) {
+                $.ajax({
+                    url: '/' + controller +'/Love/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-" + id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
-        function hahaReaction(id, controller, type) {
-            $.ajax({
-                url: '/ReplyReactions/Haha/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+                });
+            }
+            function hahaReaction(id, controller, type) {
+                $.ajax({
+                    url:'/'+ controller+ '/Haha/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-" + id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
-        function wowReaction(id, controller, type) {
-            $.ajax({
-                url: '/ReplyReactions/Wow/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+                });
+            }
+            function wowReaction(id, controller, type) {
+                $.ajax({
+                    url:'/'+controller+ '/Wow/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-" + id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
-        function sadReaction(id, controller, type) {
-            $.ajax({
-                url: '/ReplyReactions/Sad/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+                });
+            }
+            function sadReaction(id, controller, type) {
+                $.ajax({
+                    url: '/'+controller+'/Sad/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-" + id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
-        function angryReaction(id, controller, type) {
-            $.ajax({
-                url: '/ReplyReactions/Angry/' + id,
-                success: function (json) {
-                    if (type === 'get') {
-                        $("#post-likes").html(json.likes);
-                        $("#post-loves").html(json.loves);
-                        $("#post-haha").html(json.hahaCount);
-                        $("#post-wow").html(json.wowCount);
-                        $("#post-sad").html(json.sadCount);
-                        $("#post-angry").html(json.angryCount);
-                    } else {
-                        $("#reply-likes-" + id).html(json.likes);
-                        $("#reply-loves-" + id).html(json.loves);
-                        $("#reply-haha-" + id).html(json.hahaCount);
-                        $("#reply-wow-" + id).html(json.wowCount);
-                        $("#reply-sad-" + id).html(json.sadCount);
-                        $("#reply-angry-" + id).html(json.angryCount);
+                });
+            }
+            function angryReaction(id, controller, type) {
+                $.ajax({
+                    url:'/'+ controller + '/Angry/' + id,
+                    success: function (json) {
+                        if (type === 'post') {
+                            $("#post-likes-" + id).html(json.likes);
+                            $("#post-loves-" + id).html(json.loves);
+                            $("#post-haha-" + id).html(json.hahaCount);
+                            $("#post-wow-" + id).html(json.wowCount);
+                            $("#post-sad-" + id).html(json.sadCount);
+                            $("#post-angry-" + id).html(json.angryCount);
+                        } else {
+                            $("#reply-likes-" + id).html(json.likes);
+                            $("#reply-loves-" + id).html(json.loves);
+                            $("#reply-haha-" + id).html(json.hahaCount);
+                            $("#reply-wow-" + id).html(json.wowCount);
+                            $("#reply-sad-" + id).html(json.sadCount);
+                            $("#reply-angry-" + id).html(json.angryCount);
+                        }
                     }
-                }
-            });
-        }
+                });
+            } 
     </script>
 }
